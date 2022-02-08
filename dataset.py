@@ -81,13 +81,6 @@ class XRFImg4FeedSet(Dataset):
         if self.clip_mode == "single":
             file_name = "{}_{}.jpg".format(time_stamp, random.randint(1,10))
             full_img_path = os.path.join(self.root, clip, file_name)
-            """for i in range(len(clip)):
-                time_stamp = clip[i] #__getitem__一次性只读取一张图像，因此这种索引实际不是batch里的第i个元素，而是time_stamp的第i位
-                print('time_stamp_1: {}'.format(time_stamp))
-                time_stamp = time_stamp[:14]
-                print(f'time_stamp_2: {time_stamp}')
-                file_name = "{}_{}.jpg".format(time_stamp, random.randint(1,10))
-                full_img_path = os.path.join(self.root, clip[i], file_name)"""
             images = Image.open(full_img_path).convert("RGB")
             images = self.transforms(images)
             
