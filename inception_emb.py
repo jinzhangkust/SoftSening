@@ -1,11 +1,14 @@
-#import BasicModule
+"""
+Author: Dr. Jin Zhang 
+E-mail: j.zhang.vision@gmail.com
+Created on 2022.02.05
+"""
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
 
-# 这里不能继承nn.Module，否则会没有model.save()属性。model.save()在BasicModule中实现
 class Img_Inception(nn.Module):
 
     def __init__(self, num_classes=1, aux_logits=False, transform_input=False):
