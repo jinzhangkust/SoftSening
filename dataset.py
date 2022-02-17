@@ -14,10 +14,9 @@ import pandas as pd
 import random
 import os
 
-#定义一个数据集
+
 class XRFImg4FeedSet(Dataset):
     def __init__(self, root, csv_file, train_mode, clip_mode): # csv_file = 'XRFImgData4FeedRegression.csv'
-        """实现初始化方法，在初始化的时候将数据读载入"""
         self.clip_mode = clip_mode
         self.root = root
         self.df=pd.read_csv(csv_file)
