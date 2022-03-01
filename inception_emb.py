@@ -14,7 +14,6 @@ class Img_Inception(nn.Module):
     def __init__(self, num_classes=1, aux_logits=False, transform_input=False):
         super(Img_Inception, self).__init__()
         
-        # model.save(), model.load()时需要使用
         self.model_name = 'Inception'
         
         
