@@ -1,6 +1,6 @@
 """
 Author: Dr. Jin Zhang 
-E-mail: j.zhang.vision@gmail.com
+E-mail: j.zhang@kust.edu.cn
 Created on 2022.02.05
 """
 
