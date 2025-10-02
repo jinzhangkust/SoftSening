@@ -77,7 +77,7 @@ class model3D(nn.Module):
 
 
 def set_loader(opt):
-    full_data = TailingSensorSet(train_mode="train", clip_mode='seq')
+    full_data = TailingSensorSet(train_mode="train", clip_mode='dynamic')
     train_size = int(0.6 * len(full_data))
     val_size = int(0.2 * len(full_data))
     test_size = len(full_data) - train_size - val_size
@@ -140,10 +140,10 @@ def train(train_loader, model, criterion, optimizer, epoch, opt, tb):
     total_loss = 0
 
     end = time.time()
-    for idx, (reagents, images, targets) in enumerate(train_loader):
+    for idx, (process_inputs, images, targets) in enumerate(train_loader):
         data_time.update(time.time() - end)
 
-        reagents = reagents.cuda(non_blocking=True)
+        process_inputs = process_inputs.cuda(non_blocking=True)
         images = images.cuda(non_blocking=True)
         targets = targets.cuda(non_blocking=True)
         bsz = targets.shape[0]
@@ -152,7 +152,7 @@ def train(train_loader, model, criterion, optimizer, epoch, opt, tb):
         # warmup_learning_rate(opt, epoch, idx, len(train_loader), optimizer)
 
         # compute loss
-        output = model(reagents.float(), images)
+        output = model(process_inputs.float(), images)
         loss = criterion(output, targets.float())
 
         # update metric
@@ -209,14 +209,14 @@ def validate(val_loader, model, criterion, epoch, opt, tb):
 
     with torch.no_grad():
         end = time.time()
-        for idx, (reagents, images, targets) in enumerate(val_loader):
-            reagents = reagents.cuda(non_blocking=True)
+        for idx, (process_inputs, images, targets) in enumerate(val_loader):
+            process_inputs = process_inputs.cuda(non_blocking=True)
             images = images.cuda(non_blocking=True)
             targets = targets.cuda(non_blocking=True)
             bsz = targets.shape[0]
 
             # forward
-            output = model(reagents.float(), images)
+            output = model(process_inputs.float(), images)
             loss = criterion(output, targets.float())
 
             if idx:
